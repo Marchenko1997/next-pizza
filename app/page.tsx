@@ -1,6 +1,10 @@
-import { Container, Filters, ProductsGroupList, Title, TopBar } from "@/components/shared";
-
-
+import {
+  Container,
+  Filters,
+  ProductsGroupList,
+  Title,
+  TopBar,
+} from "@/components/shared";
 
 export default function Home() {
   return (
@@ -75,7 +79,7 @@ export default function Home() {
                 categoryId={1}
               />
               <ProductsGroupList
-                title={"Завтрак"}
+                title={"Комбо"}
                 items={[
                   {
                     id: 1,
