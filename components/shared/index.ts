@@ -1,4 +1,5 @@
 
+
 export { Container } from "./container";
 export { Header } from "./header";
 export { Title } from "./title";
@@ -10,3 +11,4 @@ export { FilterCheckbox } from "./filter-checkbox";
 export { RangeSlider } from "./range-slider";
 export { ProductCard } from "./product-card";
 export { ProductsGroupList } from "./products-group-list";
+export {SearchInput} from './search-input';
