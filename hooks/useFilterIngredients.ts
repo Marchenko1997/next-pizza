@@ -1,12 +1,27 @@
+import { ingredients } from './../prisma/constans';
+import { ingredients } from "@/prisma/constans";
+import { Api } from "@/services/api-client";
 import { Ingredient } from "@prisma/client";
+import React from "react";
 
 interface ReturnProps {
-  items: Ingredient[];
+  ingredients: Ingredient[];
 }
 
 export const useFilterIngredients = (): ReturnProps => {
+  const [ingredients, setIngredients] = React.useState<Ingredient[]>([]);
 
-    React.useEffect(() => {
+  React.useEffect(() => {
+    async function fetchIngredients() {
+      try {
+        const ingredients = await Api.ingredients.getAll();
+        setIngredients(ingredients);
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
-    },[])
+    fetchIngredients();
+  }, []);
+  return { ingredients };
 };
