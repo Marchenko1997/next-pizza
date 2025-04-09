@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import { Title } from './title';
 import { FilterCheckbox } from './filter-checkbox';
