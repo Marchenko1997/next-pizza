@@ -13,8 +13,9 @@ interface Props {
   limit?: number;
   loading?: boolean;
   searchInputPlaceholder?: string;
-  onChange?: (values: string[]) => void;
+  onClickCheckbox?: (id: string) => void;
   defaultValues?: string[];
+  selectedIds?: Set<string>;
   className?: string;
 }
 
@@ -25,8 +26,9 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
   limit = 5,
   searchInputPlaceholder = "Поиск...",
   className,
-  loading
-  onChange,
+  loading,
+  onClickCheckbox,
+   selectedIds,
   defaultValue,
 }) => {
   const [showAll, setShowAll] = React.useState(false);
@@ -37,14 +39,23 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
   };
 
   if (loading) {
-    return <div className={className}>
-      <p className="font-bold mb-3">{title}</p>
-      <Skeleton className="h-6 mb-5" />
-  </div>
-}
+    return (
+      <div className={className}>
+        <p className="font-bold mb-3">{title}</p>
+
+        {Array.from({ length: limit }).map((_, index) => (
+          <Skeleton key={index} className="h-6 mb-4 rounded-[8px]" />
+        ))}
+
+        <Skeleton className="w-28 h-6 mb-4 rounded-[8px]" />
+      </div>
+    );
+  }
 
   const list = showAll
-    ? items.filter((item) => item.text.toLowerCase().includes(searchValue.toLocaleLowerCase()))
+    ? items.filter((item) =>
+        item.text.toLowerCase().includes(searchValue.toLocaleLowerCase())
+      )
     : defaultItems.slice(0, limit);
 
   return (
@@ -63,8 +74,8 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
         {list.map((item, index) => (
           <FilterCheckbox
             key={index}
-            onCheckedChange={(ids) => console.log(ids)}
-            checked={false}
+            onCheckedChange={() => onClickCheckbox?.(item.value)}
+            checked={selectedIds?.has(item.value)}
             value={item.value}
             text={item.text}
             endAdornment={item.endAdornment}

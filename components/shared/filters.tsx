@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const Filters: React.FC<Props> = ({ className }) => {
-  const { ingredients } = useFilterIngredients();
+  const { ingredients, loading, onAddId, selectedIds } = useFilterIngredients();
   
   const items = ingredients.map((item) =>({value: String (item.id), text: item.name}))
   return (
@@ -32,7 +32,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
             min={0}
             max={1000}
             defaultValue={0}
-           readOnly
+            readOnly
           />
           <Input
             type="number"
@@ -40,7 +40,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
             max={1000}
             value={500}
             placeholder="30000"
-          readOnly
+            readOnly
           />
         </div>
         <RangeSlider min={0} max={5000} step={10} value={[0, 5000]} />
@@ -51,7 +51,9 @@ export const Filters: React.FC<Props> = ({ className }) => {
         limit={6}
         defaultItems={items.slice(0, 6)}
         items={items}
-        loading
+        loading={loading}
+        onClickCheckbox={onAddId}
+        selectedIds={selectedIds}
       />
     </div>
   );
