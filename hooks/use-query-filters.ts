@@ -1,7 +1,11 @@
 import React from "react";
 import { Filters } from "./use-filters";
+import qs from "qs";
+import { useRouter } from "next/navigation";
 
 export const useQueryFilters = (filters: Filters) => {
+  const router = useRouter();
+  
   React.useEffect(() => {
     const params = {
       ...filters.prices,
@@ -17,5 +21,5 @@ export const useQueryFilters = (filters: Filters) => {
     router.push(`?${query}`, {
       scroll: false,
     });
-  }, []);
+  }, [filters, router]);
 };
