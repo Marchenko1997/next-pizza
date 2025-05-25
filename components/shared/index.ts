@@ -12,3 +12,4 @@ export { RangeSlider } from "./range-slider";
 export { ProductCard } from "./product-card";
 export { ProductsGroupList } from "./products-group-list";
 export {SearchInput} from './search-input';
+export {ProductImage} from './product-image';
