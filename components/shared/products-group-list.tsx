@@ -2,10 +2,10 @@
 
 import React from "react";
 import { Title } from "./title";
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/lib/utils";
 import { ProductCard } from "./product-card";
 import { useIntersection } from "react-use";
-import { useCategoryStore } from "@/store/category";
+import { useCategoryStore } from "@/shared/store/category";
 
 interface Props {
   title: string;
