@@ -1,14 +1,18 @@
-import { Container, PizzaImage, ProductImage, Title } from "@/components/shared";
-import { GroupVariants } from "@/components/shared/group-variants";
+import { Container, PizzaImage, Title } from "@/shared/components/shared";
+import { GroupVariants } from "@/shared/components/shared/group-variants";
 import { prisma } from "@/prisma/prisma-client";
 import { notFound } from "next/navigation";
 
-export default async function ProductPage({
-  params: { id },
-}: {
-  params: { id: string };
-}) {
-  const product = await prisma.product.findFirst({ where: { id: Number(id) } });
+interface ProductPageProps {
+  params: {
+    id: string;
+  };
+}
+
+export default async function ProductPage({ params }: ProductPageProps) {
+  const product = await prisma.product.findFirst({
+    where: { id: Number(params.id) },
+  });
 
   if (!product) {
     return notFound();
@@ -27,7 +31,7 @@ export default async function ProductPage({
           <p className="text-gray-400">
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </p>
-                  <GroupVariants
+          <GroupVariants
             selectedValue="2"
             items={[
               {
@@ -39,9 +43,9 @@ export default async function ProductPage({
                 value: "2",
               },
               {
-                name: "Средняя",
+                name: "Большая",
                 value: "3",
-                disabled: true
+                disabled: true,
               },
             ]}
           />
