@@ -25,6 +25,7 @@ export const usePizzaOptions = (items: ProductItem[]): ReturnProps => {
 
   const availableSizes = getAvailablePizzaSizes(type, items);
 
+
   const currentItemId = items.find(
     (item) => item.pizzaType === type && item.size === size
   )?.id;

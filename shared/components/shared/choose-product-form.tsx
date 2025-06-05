@@ -7,7 +7,7 @@ import { Button } from '../ui';
 interface Props {
   imageUrl: string;
   name: string;
-    onClickAdd?: VoidFunction;
+    onSubmit?: (itemId);
   className?: string;
 }
 
