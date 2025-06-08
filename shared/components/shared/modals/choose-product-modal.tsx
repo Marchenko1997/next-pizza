@@ -30,7 +30,10 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
   }
 
   const onAddPizza = (productItemId: number, ingredients: number[]) => {
-    
+    addCartItem({
+      productItemId,
+      ingredients,
+    });
   };
 
   return (
@@ -47,11 +50,14 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
             name={product.name}
             ingredients={product.ingredients}
             items={product.items}
+            onSubmit={onAddPizza}
           />
         ) : (
           <ChooseProductForm
             imageUrl={product.imageUrl}
-            name={product.name}
+              name={product.name}
+              onSubmit={onAddProduct}
+              price={firstItem.price}
           />
         )}
       </DialogContent>
