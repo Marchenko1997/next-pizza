@@ -1,27 +1,26 @@
-import { cn } from '@/shared/lib/utils';
-import React from 'react';
-import { ProductImage } from './pizza-image';
-import { Title } from './title';
-import { Button } from '../ui';
+import { cn } from "@/shared/lib/utils";
+import React from "react";
+import { ProductImage } from "./pizza-image";
+import { Title } from "./title";
+import { Button } from "../ui";
 
 interface Props {
   imageUrl: string;
   name: string;
   price: number;
-    onSubmit?: VoidFunction;
+  loading?: boolean;
+  onSubmit?: VoidFunction;
   className?: string;
 }
 
 export const ChooseProductForm: React.FC<Props> = ({
   name,
-
+  loading,
   imageUrl,
   price,
   onSubmit,
   className,
 }) => {
- 
-
   return (
     <div className={cn(className, "flex flex-1")}>
       <div className="flex items-center justify-center flex-1 relative w-full">
@@ -34,10 +33,11 @@ export const ChooseProductForm: React.FC<Props> = ({
 
       <div className="w-[490px] bg-[#f7f6f5] p-7">
         <Title text={name} size="md" className="font-extrabold mb-1" />
-       
+
         <Button
+          loading={loading}
           className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10"
-          onClick={ onSubmit}
+          onClick={() => onSubmit?.()}
         >
           Добавить в корзину за {price} ₽
         </Button>

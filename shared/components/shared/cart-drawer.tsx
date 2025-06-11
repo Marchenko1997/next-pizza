@@ -58,10 +58,9 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
           </SheetTitle>
         </SheetHeader>
         <div className="-mx-6 mt-5 overflow-auto flex-1">
-          <div className="mb-2">
-            {items.map((item) => (
+          {items.map((item) => (
+            <div key={item.id} className="mb-2">
               <CartDrawerItem
-                key={item.id}
                 id={item.id}
                 imageUrl={item.imageUrl}
                 details={getCartItemDetails(
@@ -77,8 +76,8 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
                 }
                 onClickRemove={() => removeCartItem(item.id)}
               />
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
 
         <SheetFooter className="-mx-6 bg-white p-8">
