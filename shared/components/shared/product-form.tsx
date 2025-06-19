@@ -9,10 +9,10 @@ import { ChooseProductForm } from "./choose-product-form";
 
 interface Props {
   product: ProductWithRelations;
-  className?: string;
+  onSubmit?: VoidFunction;
 }
 
-export const ProductForm: React.FC<Props> = ({ product, className }) => {
+export const ProductForm: React.FC<Props> = ({ product, onSubmit: _onSubmit }) => {
   const [addCartItem, loading] = useCartStore((state) => [
     state.addCartItem,
     state.loading,
@@ -30,7 +30,8 @@ export const ProductForm: React.FC<Props> = ({ product, className }) => {
         ingredients,
       });
 
-      toast.success(product.name + " добавлен в корзину");
+        toast.success(product.name + " добавлен в корзину");
+        _onSubmit?.();
     } catch (error) {
       toast.error("Не удалось добавить товар в корзину");
       console.error(error);
@@ -48,14 +49,14 @@ export const ProductForm: React.FC<Props> = ({ product, className }) => {
         loading={loading}
       />
     );
-    }
-    return (
-      <ChooseProductForm
-        imageUrl={product.imageUrl}
-        name={product.name}
-        onSubmit={onSubmit}
-        price={firstItem.price}
-        loading={loading}
-      />
-    );
+  }
+  return (
+    <ChooseProductForm
+      imageUrl={product.imageUrl}
+      name={product.name}
+      onSubmit={onSubmit}
+      price={firstItem.price}
+      loading={loading}
+    />
+  );
 };
