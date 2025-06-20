@@ -21,13 +21,14 @@ import { PizzaSize, PizzaType } from "@/shared/constants/pizza";
 import { SheetClose } from "@/components/ui/sheet";
 import { cn } from "@/shared/lib/utils";
 
+
 interface Props {
   className?: string;
 }
 
 export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({
   children,
-  className,
+
 }) => {
   const totalAmount = useCartStore((state) => state.totalAmount);
   const fetchCartItems = useCartStore((state) => state.fetchCartItems);
