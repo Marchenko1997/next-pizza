@@ -32,15 +32,24 @@ export const useCartStore = create<CartState>((set, get) => ({
   fetchCartItems: async () => {
     try {
       set({ loading: true, error: false });
-      const data = await Api.cart.getCart();
+  
+      const response = await Api.cart.getCart();
+      const data = response.userCart;
+      console.log("RECEIVED DATA:", data);
+  
+      if (!data || !Array.isArray(data.items)) {
+        throw new Error("Invalid response from API /cart");
+      }
+  
       set(getCartDetails(data));
     } catch (error) {
-      console.error(error);
+      console.error("fetchCartItems error:", error);
       set({ error: true });
     } finally {
       set({ loading: false });
     }
   },
+  
 
   updateItemQuantity: async (id: number, quantity: number) => {
     try {
@@ -77,16 +86,16 @@ export const useCartStore = create<CartState>((set, get) => ({
     }
   },
 
-    addCartItem: async (values: CreateCartItemValues) => {
-        try {
-          set({ loading: true, error: false });
-          const data = await Api.cart.addCartItem(values)
-          set(getCartDetails(data));
-        } catch (error) {
-          console.error(error);
-          set({ error: true });
-        } finally {
-          set({ loading: false });
-        }
+  addCartItem: async (values: CreateCartItemValues) => {
+    try {
+      set({ loading: true, error: false });
+      const data = await Api.cart.addCartItem(values);
+      set(getCartDetails(data));
+    } catch (error) {
+      console.error(error);
+      set({ error: true });
+    } finally {
+      set({ loading: false });
+    }
   },
 }));

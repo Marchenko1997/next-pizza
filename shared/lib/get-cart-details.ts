@@ -18,7 +18,17 @@ interface ReturnProps {
   totalAmount: number;
 }
 
+
+
 export const getCartDetails = (data: CartDTO): ReturnProps => {
+  if (!data || !Array.isArray(data.items)) {
+    console.warn("Invalid cart data", data);
+    return {
+      items: [],
+      totalAmount: 0,
+    };
+  }
+
   const items = data.items.map((item) => ({
     id: item.id,
     quantity: item.quantity,
@@ -32,10 +42,11 @@ export const getCartDetails = (data: CartDTO): ReturnProps => {
       name: ingredient.name,
       price: ingredient.price,
     })),
-  })) as CartStateItem[];
+  }));
 
   return {
     items,
-    totalAmount: data.totalAmount,
+    totalAmount: data.totalAmount ?? 0,
   };
 };
+
