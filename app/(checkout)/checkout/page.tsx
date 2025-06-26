@@ -13,6 +13,10 @@ import { useCart } from "@/shared/hooks";
 import { getCartItemDetails } from "@/shared/lib";
 import { ArrowRight, Package, Percent, Truck } from "lucide-react";
 
+const VAT = 15;
+const DELIVERY_PRICE = 250;
+
+
 export default function CheckoutPage() {
     const { totalAmount, updateItemQuantity, items, removeCartItem } = useCart();
     
@@ -25,7 +29,12 @@ export default function CheckoutPage() {
         type === "plus" ? quantity + 1 : Math.max(quantity - 1, 1);
       updateItemQuantity(id, newQuantity);
     };
-    
+
+    const vatPrice = (totalAmount * VAT) / 100;
+    const totalPrice = totalAmount + DELIVERY_PRICE + vatPrice;
+
+
+
   return (
     <Container className="mt-10">
       <Title
@@ -91,18 +100,16 @@ export default function CheckoutPage() {
           <WhiteBlock className="p-6 sticky top-4">
             <div className="flex flex-col gap-1">
               <span className="text-xl">Итого:</span>
-              <span className="text-[34px] font-extrabold">
-                {totalAmount} ₽
-              </span>
+              <span className="text-[34px] font-extrabold">{totalPrice} ₽</span>
             </div>
             <CheckoutItemDetails
               title={
                 <div className="flex items-center">
                   <Package size={18} className="mr-2 text-gray-300" />
-                  Стоимость товаров:
+                  Стоимость корзины:
                 </div>
               }
-              value="3506 ₽"
+              value={`${totalAmount} ₽`}
             />
             <CheckoutItemDetails
               title={
@@ -111,7 +118,7 @@ export default function CheckoutPage() {
                   Налоги:
                 </div>
               }
-              value="3506 ₽"
+              value={`${vatPrice} ₽`}
             />
             <CheckoutItemDetails
               title={
@@ -120,7 +127,7 @@ export default function CheckoutPage() {
                   Доставка:
                 </div>
               }
-              value="3506 ₽"
+              value={`${DELIVERY_PRICE} ₽`}
             />
             <Button
               type="submit"
