@@ -28,7 +28,7 @@ const {
     const value = watch(name);
     const errorText = errors[name]?.message as string;
 
-    const onClickClear = () => setValue(name, "");
+    const onClickClear = () => setValue(name, "", { shouldValidate: true });
 
     return (
       <div className={className}>

@@ -1,24 +1,20 @@
 "use client";
 import { FormProvider, useForm } from "react-hook-form";
-import {
-
-  CheckoutSidebar,
-  Container,
- 
-  Title,
-
-} from "@/shared/components/shared";
-
-
-
 import { useCart } from "@/shared/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CheckoutAddressForm, CheckoutCart, CheckoutPersonalForm } from "@/shared/components/shared/check-out";
-import { checkoutFormSchema, CheckoutFormValues } from "@/shared/components/shared/check-out/checkout-form-schema";
-
+import {
+    CheckoutSidebar, Container, Title,
+  CheckoutAddressForm,
+  CheckoutCart,
+  CheckoutPersonalForm,
+} from "@/shared/components";
+import {
+  checkoutFormSchema,
+  CheckoutFormValues,
+} from "@/shared/constants";
 
 export default function CheckoutPage() {
-  const { totalAmount, updateItemQuantity, items, removeCartItem } = useCart();
+  const { totalAmount, updateItemQuantity, items, removeCartItem, loading } = useCart();
 
   const form = useForm<CheckoutFormValues>({
     resolver: zodResolver(checkoutFormSchema),
@@ -31,10 +27,10 @@ export default function CheckoutPage() {
       comment: "",
     },
   });
-    
-    const onSubmit = (data: CheckoutFormValues) => { 
-console.log(data);
-    }
+
+  const onSubmit = (data: CheckoutFormValues) => {
+    console.log(data);
+  };
 
   const onClickCountButton = (
     id: number,
@@ -67,7 +63,7 @@ console.log(data);
             </div>
             {/* Правая часть */}
             <div className="w-[450px]">
-              <CheckoutSidebar totalAmount={totalAmount} />
+              <CheckoutSidebar totalAmount={totalAmount} loading={loading} />
             </div>
           </div>
         </form>

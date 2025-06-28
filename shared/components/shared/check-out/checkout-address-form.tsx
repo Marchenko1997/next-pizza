@@ -1,21 +1,31 @@
 import React from "react";
-import { WhiteBlock } from "..";
-import { Input, Textarea } from "../../ui";
+import { ErrorText, FormTextarea, WhiteBlock } from "..";
+import { AdressInput } from "../adress-input";
+import { Controller, useFormContext } from "react-hook-form";
 
 interface Props {
   className?: string;
 }
 
 export const CheckoutAddressForm: React.FC<Props> = ({ className }) => {
+  const { control } = useFormContext();
   return (
     <WhiteBlock title="3.Адресс доставки">
       <div className="flex flex-col gap-5">
-        <Input
-          name="firstName"
-          className="text-base"
-          placeholder="Введите адресс..."
+        <Controller
+          control={control}
+          name="address"
+          render={({ field, fieldState }) => (
+            <>
+              <AdressInput onChange={field.onChange} />
+              {fieldState.error?.message && (
+                <ErrorText text={fieldState.error.message} />
+              )}
+            </>
+          )}
         />
-        <Textarea
+        <FormTextarea
+          name="comment"
           className="text-base"
           placeholder="Комментарий к заказу"
           rows={5}
