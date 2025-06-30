@@ -1,6 +1,6 @@
 import React from "react";
 import { ErrorText, FormTextarea, WhiteBlock } from "..";
-import { AdressInput } from "../adress-input";
+import AdressInput from "@/shared/components/shared/adress-input-wrapper";
 import { Controller, useFormContext } from "react-hook-form";
 
 interface Props {
