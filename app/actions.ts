@@ -4,11 +4,12 @@ import { CheckoutFormValues } from "@/shared/constants";
 import { cookies } from "next/headers";
 import { prisma } from "@/prisma/prisma-client";
 import { OrderStatus } from "@prisma/client";
-import { sendEmail } from "@/shared/lib";
+import { createPayment, sendEmail } from "@/shared/lib";
+import { PayOrderTemplate } from "@/shared/components";
 
 export async function createOrder(data: CheckoutFormValues) {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const cartToken = cookieStore.get("cartToken")?.value;
     if (!cartToken) {
       throw new Error("Cart token not found");
@@ -63,14 +64,46 @@ export async function createOrder(data: CheckoutFormValues) {
         totalAmount: 0,
       },
     });
-      
+
     await prisma.cartItem.deleteMany({
       where: {
         cartId: userCart.id,
       },
     });
 
-      sendEmail(data.email, "Next Pizza / Оплатите заказ #" + order.id);
-      
-  } catch (error) {}
+    const paymentData = await createPayment({
+      amount: order.totalAmount,
+      orderId: order.id,
+      description: "Оплата заказа #" + order.id,
+    });
+
+    if (!paymentData) {
+      throw new Error("Payment data not found");
+    }
+
+    await prisma.order.update({
+      where: {
+        id: order.id,
+      },
+      data: {
+        paymentId: paymentData.id,
+      },
+    });
+
+    const paymentUrl = paymentData.confirmation.confirmation_url;
+
+    await sendEmail(
+      data.email,
+      `Next Pizza / Оплатите заказ #${order.id}`,
+      await PayOrderTemplate({
+        orderId: order.id,
+        totalAmount: order.totalAmount,
+        paymentUrl,
+      })
+      );
+
+    return paymentUrl;
+  } catch (error) {
+    console.log("[CreateOrder] Server error", error);
+  }
 }
