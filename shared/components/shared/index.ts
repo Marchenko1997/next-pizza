@@ -26,6 +26,7 @@ export { ErrorText } from "./error-text";
 export { RequiredSymbol } from "./required-symbol";
 export { ClearButton } from "./clear-button";
 export { ProfileButton } from "./profile-button";
+export { InfoBlock } from "./info-block";
 export * from "./email-temapltes";
 export * from "./form-components";
 export * from "./check-out";
