@@ -29,7 +29,7 @@ export const LoginForm: React.FC<Props> = ({ onClose }) => {
       });
 
       if (!resp?.ok) {
-        throw Error();
+       throw Error();
       }
 
       toast.success("Вы успешно вошли в аккаунт", {
