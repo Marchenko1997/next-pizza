@@ -4,6 +4,7 @@ import {
   ProductsGroupList,
   Title,
   TopBar,
+  Stories
 } from "@/shared/components/shared";
 import { findPizzas, GetSearchParams } from "@/shared/lib/find-pizzas";
 import { Suspense } from "react";
@@ -20,6 +21,7 @@ export default async function Home({
       <Container className="mt-10">
         <Title text="Все пиццы" size="lg" className="font-extrabold" />
       </Container>
+      <Stories/>
       <TopBar
         categories={categories.filter(
           (category) => category.products.length > 0
