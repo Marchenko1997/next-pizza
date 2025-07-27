@@ -180,9 +180,7 @@ export async function registerUser(body: Prisma.UserCreateInput) {
     await sendEmail(
       createdUser.email,
       "Next Pizza / 📝 Подтверждение регистрации",
-      VerificationUserTemplate({
-        code,
-      })
+      VerificationUserTemplate({ code }) as unknown as string
     );
   } catch (err) {
     console.log("Error [CREATE_USER]", err);

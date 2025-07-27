@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+
 import { FormProvider,  useForm } from "react-hook-form";
 import { useCart } from "@/shared/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,6 +19,8 @@ import toast from "react-hot-toast";
 import React from "react";
 import { useSession } from "next-auth/react";
 import { Api } from "@/shared/services/api-client";
+
+
 
 export default function CheckoutPage() {
   const [submitting, setSubmitting] = React.useState(false);

@@ -3,21 +3,13 @@
 import React from "react";
 import { cn } from "@/shared/lib/utils";
 import { useCategoryStore } from "@/shared/store/category";
+import { Category } from "@prisma/client";
 
 interface Props {
   items: Category[];
   className?: string;
 }
 
-// const cats = [
-//   { id: 1, name: "Пиццы" },
-//   { id: 2, name: "Комбо" },
-//   { id: 3, name: "Закуски" },
-//   { id: 4, name: "Коктейли" },
-//   { id: 5, name: "Кофе" },
-//   { id: 6, name: "Напитки" },
-//   { id: 7, name: "Десерты" },
-// ];
 
 
 export const Categories: React.FC<Props> = ({ items, className }) => {
