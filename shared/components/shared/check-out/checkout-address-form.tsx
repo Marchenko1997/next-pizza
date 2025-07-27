@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { ErrorText, FormTextarea, WhiteBlock } from "..";
 import AdressInput from "@/shared/components/shared/adress-input-wrapper";
