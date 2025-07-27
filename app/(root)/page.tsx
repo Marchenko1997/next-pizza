@@ -9,11 +9,8 @@ import {
 import { findPizzas, GetSearchParams } from "@/shared/lib/find-pizzas";
 import { Suspense } from "react";
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: GetSearchParams;
-}) {
+export default async function Home(props: unknown) {
+  const { searchParams } = props as { searchParams: GetSearchParams };
   const categories = await findPizzas(searchParams);
 
   return (
@@ -21,7 +18,7 @@ export default async function Home({
       <Container className="mt-10">
         <Title text="Все пиццы" size="lg" className="font-extrabold" />
       </Container>
-      <Stories/>
+      <Stories />
       <TopBar
         categories={categories.filter(
           (category) => category.products.length > 0
