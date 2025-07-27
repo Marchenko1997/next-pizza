@@ -32,24 +32,15 @@ export const useCartStore = create<CartState>((set, get) => ({
   fetchCartItems: async () => {
     try {
       set({ loading: true, error: false });
-  
-      const response = await Api.cart.getCart();
-      const data = response.userCart;
-      console.log("RECEIVED DATA:", data);
-  
-      if (!data || !Array.isArray(data.items)) {
-        throw new Error("Invalid response from API /cart");
-      }
-  
-      set(getCartDetails(data));
+      const data = await Api.cart.getCart();
+      set(getCartDetails(data.userCart)); 
     } catch (error) {
-      console.error("fetchCartItems error:", error);
+      console.error(error);
       set({ error: true });
     } finally {
       set({ loading: false });
     }
   },
-  
 
   updateItemQuantity: async (id: number, quantity: number) => {
     try {
