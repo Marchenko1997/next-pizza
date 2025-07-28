@@ -6,8 +6,8 @@
 
 ## 🍕 Project Overview
 
-**Next Pizza** is a modern, full-featured pizza delivery web application inspired by popular online food delivery platforms.  
-Built with **Next.js 15**, **React 19**, and **Tailwind CSS 4**, this app demonstrates real-world e‑commerce functionality, from **product filtering** to **custom pizza building**.
+**Next Pizza** is a state-of-the-art, fully featured pizza delivery web application, drawing inspiration from leading online food delivery services.  
+Developed using **Next.js 15**, **React 19**, and **Tailwind CSS 4**, it showcases production-grade e‑commerce capabilities, ranging from **advanced product filtering** to **customizable pizza creation**.
 
 ---
 
