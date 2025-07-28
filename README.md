@@ -1,4 +1,4 @@
-# <img src="./public/assets/readme/mainpage.png" width="28" alt="Next Pizza"> Next Pizza
+# <img src="./public/assets/readme/mainpage.png"  alt="Next Pizza"> 
 
 ## <img src="./public/assets/readme/pizza.png" alt="Pizza Preview">
 
@@ -13,7 +13,7 @@ Built with **Next.js 15**, **React 19**, and **Tailwind CSS 4**, this app demons
 
 ## 🚀 Live Demo
 
-Check out the live project here: **[Next Pizza Live](https://your-vercel-link.vercel.app/)**
+Check out the live project here: **[Next Pizza Live](https://next-pizza-phi-seven.vercel.app/)**
 
 ---
 
@@ -56,7 +56,7 @@ cd next-pizza
 
 ```bash
 npm install
-# or
+echo "or"
 yarn install
 ```
 
@@ -127,10 +127,10 @@ npx prisma generate
 ```bash
 npx prisma db push
 ```
-# View database in Prisma Studio
+### View database in Prisma Studio
 npx prisma studio
 
-# Reset database
+### Reset database
 npx prisma db reset
 
 ## 🏗️ Building for Production
@@ -170,14 +170,15 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📝 Recent Updates
 
-- ✅ Implemented server-side product filtering with URI state
-- ✅ Built comprehensive cart and checkout system
-- ✅ Integrated multi-provider authentication (GitHub, Google)
-- ✅ Added email confirmation and notification system
-- ✅ Created user profile management interface
-- ✅ Implemented modal and parallel route product views
-- ✅ Set up PostgreSQL database with Prisma ORM
-- ✅ Deployed to Vercel with automatic CI/CD
+- ✅ Implemented server-side filtering with URL-based state management  
+- ✅ Developed a full-featured cart and checkout workflow  
+- ✅ Added support for multiple authentication providers (GitHub, Google)  
+- ✅ Enabled email verification and notification features  
+- ✅ Built a user profile management dashboard  
+- ✅ Integrated modal views and parallel routing for product details  
+- ✅ Configured PostgreSQL database using Prisma ORM  
+- ✅ Successfully deployed to Vercel with automated CI/CD pipelines
+
 
 ---
 
@@ -187,3 +188,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 - Thanks to the Next.js team for the amazing framework
 - Vercel for providing excellent hosting and database services
 - The open-source community for the incredible tools and libraries
+
+---
+
+## ⭐ Enjoying the project? A ⭐ would be much appreciated!
