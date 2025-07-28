@@ -56,7 +56,6 @@ cd next-pizza
 
 ```bash
 npm install
-echo "or"
 yarn install
 ```
 
