@@ -4,6 +4,7 @@ import { Api } from "@/shared/services/api-client";
 import { IStory } from "@/shared/services/stories";
 import React from "react";
 import { Container } from "./container";
+import { FallbackImage } from "./fallback-image";
 import { cn } from "@/shared/lib/utils";
 import { X } from "lucide-react";
 import ReactStories from "react-insta-stories";
@@ -50,13 +51,14 @@ export const Stories: React.FC<Props> = ({ className }) => {
               />
             ))}
           {stories.map((story) => (
-            <img
+            <FallbackImage
               key={story.id}
               onClick={() => onClickStory(story)}
               className="rounded-md cursor-pointer"
               height={250}
               width={200}
               src={story.previewImageUrl}
+              fallbackSrc={`/assets/fallback/stories/cover-${story.id}.webp`}
               alt={"story preview"}
             />
           ))}
