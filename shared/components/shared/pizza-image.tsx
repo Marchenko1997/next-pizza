@@ -1,5 +1,6 @@
 import { cn } from '@/shared/lib/utils';
 import React from 'react';
+import { FallbackImage } from './fallback-image';
 
 interface Props {
   className?: string;
@@ -15,7 +16,7 @@ export const PizzaImage: React.FC<Props> = ({ imageUrl, size, className }) => {
         className
       )}
     >
-      <img
+      <FallbackImage
         src={imageUrl}
         alt="Logo"
         className={cn(

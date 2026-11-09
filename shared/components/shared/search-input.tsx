@@ -8,6 +8,7 @@ import { Search } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { useClickAway, useDebounce } from "react-use";
+import { FallbackImage } from "./fallback-image";
 
 interface Props {
   className?: string;
@@ -79,7 +80,7 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
                 className="flex items-center gap-3 w-full px-3 py-2 hover:bg-primary/10"
                 href={`/product/${product.id}`}
               >
-                <img
+                <FallbackImage
                   className="rounded-sm h-8 w-8"
                   src={product.imageUrl}
                   alt={product.name}
