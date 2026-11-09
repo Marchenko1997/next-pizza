@@ -4,7 +4,7 @@ import { Api } from "@/shared/services/api-client";
 import { IStory } from "@/shared/services/stories";
 import React from "react";
 import { Container } from "./container";
-import { FallbackImage } from "./fallback-image";
+import { FallbackImage, resolveImageUrls } from "./fallback-image";
 import { cn } from "@/shared/lib/utils";
 import { X } from "lucide-react";
 import ReactStories from "react-insta-stories";
@@ -16,7 +16,7 @@ interface Props {
 export const Stories: React.FC<Props> = ({ className }) => {
   const [stories, setStories] = React.useState<IStory[]>([]);
   const [open, setOpen] = React.useState(false);
-  const [selectedStory, setSelectedStory] = React.useState<IStory>();
+  const [frameUrls, setFrameUrls] = React.useState<string[]>([]);
 
   React.useEffect(() => {
     async function fetchStories() {
@@ -27,10 +27,13 @@ export const Stories: React.FC<Props> = ({ className }) => {
     fetchStories();
   }, []);
     
-      const onClickStory = (story: IStory) => {
-        setSelectedStory(story);
+      const onClickStory = async (story: IStory) => {
+        const urls = await resolveImageUrls(
+          story.items.map((item) => item.sourceUrl)
+        );
+        setFrameUrls(urls);
 
-        if (story.items.length > 0) {
+        if (urls.length > 0) {
           setOpen(true);
         }
       };
@@ -74,11 +77,7 @@ export const Stories: React.FC<Props> = ({ className }) => {
 
                 <ReactStories
                   onAllStoriesEnd={() => setOpen(false)}
-                  stories={
-                    selectedStory?.items.map((item) => ({
-                      url: item.sourceUrl,
-                    })) || []
-                  }
+                  stories={frameUrls.map((url) => ({ url }))}
                   defaultInterval={3000}
                   width={520}
                   height={800}
