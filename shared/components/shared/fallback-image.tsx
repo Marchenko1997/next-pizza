@@ -31,6 +31,17 @@ const getFallbackSrc = (src: string) => {
   return `/assets/fallback/${fileName.includes(".") ? fileName : `${fileName}.png`}`;
 };
 
+/** Returns CDN URLs as is, or their existing local copies once the CDN has failed. */
+export const resolveImageUrls = async (urls: string[]) => {
+  if (!isCdnFailed()) return urls;
+
+  const localUrls = urls.map(getFallbackSrc);
+  const found = await Promise.all(
+    localUrls.map((url) => fetch(url, { method: "HEAD" }).then((res) => res.ok))
+  );
+  return localUrls.filter((_, index) => found[index]);
+};
+
 /**
  * Renders a CDN image and uses its local copy once the CDN fails or is too slow.
  * Renders nothing if the local copy is missing too.
