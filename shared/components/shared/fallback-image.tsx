@@ -2,7 +2,11 @@
 
 import React from "react";
 
-type Props = Omit<React.ComponentProps<"img">, "src"> & { src: string };
+type Props = Omit<React.ComponentProps<"img">, "src"> & {
+  src: string;
+  /** Local copy path, for CDN URLs whose file names are not unique. */
+  fallbackSrc?: string;
+};
 
 const CDN_FAILED_KEY = "image-cdn-failed";
 const CDN_TIMEOUT_MS = 1500;
@@ -27,9 +31,13 @@ const getFallbackSrc = (src: string) => {
   return `/assets/fallback/${fileName.includes(".") ? fileName : `${fileName}.png`}`;
 };
 
-/** Renders a CDN image and uses its local copy once the CDN fails or is too slow. */
-export const FallbackImage: React.FC<Props> = ({ src, alt = "", ...props }) => {
+/**
+ * Renders a CDN image and uses its local copy once the CDN fails or is too slow.
+ * Renders nothing if the local copy is missing too.
+ */
+export const FallbackImage: React.FC<Props> = ({ src, fallbackSrc, alt = "", ...props }) => {
   const useLocalCopy = React.useSyncExternalStore(subscribe, isCdnFailed, () => false);
+  const [localCopyMissing, setLocalCopyMissing] = React.useState(false);
   const imageRef = React.useRef<HTMLImageElement>(null);
 
   // A server-rendered image can fail before hydration, when onError is not attached yet.
@@ -48,13 +56,15 @@ export const FallbackImage: React.FC<Props> = ({ src, alt = "", ...props }) => {
     return () => clearTimeout(timer);
   }, [useLocalCopy, src]);
 
+  if (useLocalCopy && localCopyMissing) return null;
+
   return (
     <img
       {...props}
       ref={imageRef}
       alt={alt}
-      src={useLocalCopy ? getFallbackSrc(src) : src}
-      onError={markCdnFailed}
+      src={useLocalCopy ? fallbackSrc ?? getFallbackSrc(src) : src}
+      onError={useLocalCopy ? () => setLocalCopyMissing(true) : markCdnFailed}
     />
   );
 };
